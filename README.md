@@ -15,19 +15,16 @@ waypoint_sender_pkg/
 └── .gitignore
 ```
 
-## waypoint_sender_pkg
+## 📦 Package Description
 
-A ROS 2 Python package that sends waypoint missions to TurtleBot3 using Navigation2 and a YAML file.
 
----
+waypoint_sender_pkg is a ROS 2 Python package that sends waypoint missions to a TurtleBot3 using Navigation2 and a YAML file.
 
-## 📌 Overview
-
-This package lets you define a set of waypoints in a `.yaml` file and send them to the `/follow_waypoints` action server in Navigation2. It automates waypoint-following for your TurtleBot3 (Burger or Waffle) using ROS 2.
+It allows you to define a list of waypoints in a .yaml file and send them to the /follow_waypoints action server in Navigation2. This automates waypoint-following for your TurtleBot3 (Burger or Waffle) in simulation or real-world environments.
 
 ---
 
-## ✅ What Has Been Done
+## ✅ Features Completed
 
 ### ✅ 1. Created a ROS 2 Workspace
 
@@ -66,7 +63,7 @@ Main logic:
 - Convert each to PoseStamped
 - Send goal to /follow_waypoints action server
 
-### ✅ 5. Created Entry Point in setup.py
+### ✅ 5. Added Entry Point in setup.py
 
 ```python
 entry_points={
@@ -110,9 +107,9 @@ source install/setup.bash
 ros2 run waypoint_sender_pkg send_waypoints
 ```
 
-## 🚀 How to Use
+## 🛠 How to Use
 
-### 1. Make sure Navigation2 is running:
+### Step 1: Launch Navigation2
 
 ```bash
 export TURTLEBOT3_MODEL=burger  # or waffle
@@ -120,34 +117,35 @@ ros2 launch turtlebot3_navigation2 navigation2.launch.py \
   use_sim_time:=True map:=$HOME/real_map.yaml
 ```
 
-### 2. Start Waypoint Follower
+### Step 2: Start the Waypoint Follower
 
 ```bash
 ros2 launch nav2_waypoint_follower waypoint_follower.launch.py use_sim_time:=True
 ```
 
-### 3. Run the Script
+### Step 3: Run the Waypoint Sender Script
 
 ```bash
 ros2 run waypoint_sender_pkg send_waypoints
 ```
 
-### ✅ Final Recommendations (Optional)
+### 📁 Optional Improvements
 
-### 1. Move waypoints.yaml into a waypoints/ folder:
+### 1. Move waypoints.yaml into the package directory
 
 ```bash
 mkdir -p ~/turtlebot3_ws/src/waypoint_sender_pkg/waypoints
 mv ~/waypoints.yaml ~/turtlebot3_ws/src/waypoint_sender_pkg/waypoints/
 ```
 
-### 2. Update your script to read from the new path:
+### 2. Update Script to Load from New Path
 
 ```python
-yaml_path = str(Path(__file__).parent.parent / 'waypoints' / 'waypoints.yaml')
+from pathlib import Path
+
+yaml_path = Path(__file__).parent.parent / 'waypoints' / 'waypoints.yaml'
+
 ```
-
-
 
 
 
