@@ -147,5 +147,11 @@ yaml_path = Path(__file__).parent.parent / 'waypoints' / 'waypoints.yaml'
 
 ```
 
+### 📌 Notes
+
+- Ensure all dependencies are sourced correctly before running the script.
+- You may need to use --ros-args or --log-level if debugging.
+- Test in Gazebo first before running on a real robot.
+
 
 
