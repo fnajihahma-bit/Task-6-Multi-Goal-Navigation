@@ -107,27 +107,73 @@ source install/setup.bash
 ros2 run waypoint_sender_pkg send_waypoints
 ```
 
-## 🛠 How to Use
+## 🛠 How to Use (🧭 STEP-BY-STEP: Open everything manually)
 
-### Step 1: Launch Navigation2
-
-```bash
-export TURTLEBOT3_MODEL=burger  # or waffle
-ros2 launch turtlebot3_navigation2 navigation2.launch.py \
-  use_sim_time:=True map:=$HOME/real_map.yaml
-```
-
-### Step 2: Start the Waypoint Follower
+### Step 1: 🧩 1️⃣ Source your workspace and set the model
 
 ```bash
-ros2 launch nav2_waypoint_follower waypoint_follower.launch.py use_sim_time:=True
+source /opt/ros/humble/setup.bash
+source ~/turtlebot3_ws/install/setup.bash
+export TURTLEBOT3_MODEL=waffle
 ```
 
-### Step 3: Run the Waypoint Sender Script
+### Step 2: 🧩 2️⃣ Launch Gazebo world
 
+```bash
+ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+```
+✅ You should now see Gazebo open with your robot in the world.
+
+### Step 3: 🧩 3️⃣ Launch Navigation2 (Nav2 + AMCL + Map Server)
+
+Use your map:
+```bash
+ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=True map:=~/sim_map.yaml
+```
+✅ Wait until all Nav2 lifecycle nodes are active.
+You can check with:
+```bash
+ros2 lifecycle list
+```
+They should all say active.
+
+### Step 4: 🧩 4️⃣ Open RViz2 manually
+
+If it didn’t open automatically with step 3, run:
+```bash
+ros2 run rviz2 rviz2 -d $(ros2 pkg prefix turtlebot3_navigation2)/share/turtlebot3_navigation2/rviz/tb3_navigation2.rviz
+```
+✅ RViz2 should now open with your map loaded.
+
+### Step 5: 🧩 5️⃣ Set the Initial Pose in RViz
+🧩 5️⃣ Set the Initial Pose in RViz
+
+Click “2D Pose Estimate” (green arrow icon)
+
+Click near where your robot is in Gazebo
+
+You’ll see the AMCL warnings disappear.
+
+### Step 6: 🧩 6️⃣ (Optional) Launch the Waypoint Follower
+
+If your version doesn’t have a launch file, just start Nav2’s waypoint follower node manually:
+```bash
+ros2 run nav2_waypoint_follower waypoint_follower
+```
+(If this fails, we’ll confirm the correct executable name.)
+
+### Step 7: 🧩 7️⃣ Finally — send your waypoints
+
+Now that everything is running:
 ```bash
 ros2 run waypoint_sender_pkg send_waypoints
 ```
+✅ You should see:
+```css
+[INFO] Connected to /follow_waypoints!
+[INFO] Sending waypoints to Nav2 Waypoint Follower...
+```
+And the robot will start moving along the waypoints in Gazebo.
 
 ### 📁 Optional Improvements
 
