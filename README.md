@@ -107,7 +107,7 @@ source install/setup.bash
 ros2 run waypoint_sender_pkg send_waypoints
 ```
 
-## 🛠 How to Use (🧭 STEP-BY-STEP: Open everything manually)
+## 🛠 How to Use GAZEBO Simulation (🧭 STEP-BY-STEP: Open everything manually)
 
 ### Step 1: 🧩 1️⃣ Source your workspace and set the model
 
@@ -148,9 +148,8 @@ ros2 run rviz2 rviz2 -d $(ros2 pkg prefix turtlebot3_navigation2)/share/turtlebo
 ### Step 5: 🧩 5️⃣ Set the Initial Pose in RViz
 🧩 5️⃣ Set the Initial Pose in RViz
 
-Click “2D Pose Estimate” (green arrow icon)
-
-Click near where your robot is in Gazebo
+- Click “2D Pose Estimate” (green arrow icon)
+- Click near where your robot is in Gazebo
 
 You’ll see the AMCL warnings disappear.
 
