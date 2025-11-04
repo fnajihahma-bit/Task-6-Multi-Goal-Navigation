@@ -198,5 +198,65 @@ yaml_path = Path(__file__).parent.parent / 'waypoints' / 'waypoints.yaml'
 - You may need to use --ros-args or --log-level if debugging.
 - Test in Gazebo first before running on a real robot.
 
+----
+## Step-by-step bringup & waypoint run guide for a real TurtleBot3 Waffle using ROS 2 Humble.
+
+### Important assumptions: both machines are on the same LAN, you have ROS 2 Humble + TurtleBot3 packages installed on both, and your robot IP is 10.9.10.153 and your laptop IP is 10.9.10.29 (adjust if different).
+
+### 0 — Quick checklist before starting
+
+- Robot powered on, OpenCR board flashed and connected, motor power switch ON.
+- You know robot IP (example 10.9.10.153).
+- Map file exists on Remote PC (example ~/turtlebot3_ws/src/turtlebot3/turtlebot3_navigation2/map/real_map.yaml).
+- Both machines have same ROS 2 packages installed (turtlebot3, turtlebot3_bringup, turtlebot3_gazebo if needed, navigation2, nav2_waypoint_follower, etc.)
+
+### 1 — Add persistent env (run on both machines once)
+
+Add these lines to the bottom of ~/.bashrc on both robot and laptop (use nano ~/.bashrc):
+
+```bash
+# TurtleBot3 / ROS2 networking
+source /opt/ros/humble/setup.bash
+# If you have a local workspace:
+[ -f ~/turtlebot3_ws/install/setup.bash ] && source ~/turtlebot3_ws/install/setup.bash
+export TURTLEBOT3_MODEL=waffle
+export ROS_DOMAIN_ID=30
+export ROS_LOCALHOST_ONLY=0
+export RMW_IMPLEMENTATION=rmw_fastrtps_cpp    # or rmw_cyclonedds_cpp if you prefer
+```
+
+Then apply:
+```bash
+source ~/.bashrc
+```
+
+### 2 — Network & OS checks (both machines)
+
+Run on both to confirm network and env:
+
+```bash
+# Confirm IPs
+hostname -I
+
+# Confirm env
+echo $ROS_DOMAIN_ID
+echo $ROS_LOCALHOST_ONLY
+echo $TURTLEBOT3_MODEL
+echo $RMW_IMPLEMENTATION
+```
+
+If any differ, fix them before proceeding. If a firewall is active on laptop, temporarily disable while testing:
+
+```bash
+sudo ufw status
+sudo ufw disable
+```
+
+
+
+
+
+
+
 
 
