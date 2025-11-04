@@ -252,8 +252,22 @@ sudo ufw status
 sudo ufw disable
 ```
 
+### 3 — On the ROBOT SBC (do this first)
 
+Open an SSH session to the robot or use its terminal:
 
+```bash
+ssh ubuntu@10.9.10.153   # or login directly
+source ~/.bashrc
+```
+
+### 3.1 Launch bringup (drivers + sensors):
+
+```bash
+ros2 launch turtlebot3_bringup robot.launch.py
+```
+
+Leave this terminal open. Expected outputs: Connected to OpenCR / diff_drive_controller / LD08 driver or similar.
 
 
 
