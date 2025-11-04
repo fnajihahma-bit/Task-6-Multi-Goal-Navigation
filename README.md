@@ -352,12 +352,14 @@ ros2 run rviz2 rviz2 -d $(ros2 pkg prefix turtlebot3_navigation2)/share/turtlebo
 ```
 
 
-In RViz
+In RViz:
+
+```markdown
     - Global Options → Fixed Frame = map
     - Add / ensure the Map display is subscribed to /map (nav_msgs/OccupancyGrid)
     - Add LaserScan /scan, TF, RobotModel
     - Use 2D Pose Estimate (green arrow) to click robot's position on the map.
-
+```
 
 ### 🧩 8 — Confirm localization (/amcl_pose)
 
