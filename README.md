@@ -257,7 +257,7 @@ sudo ufw disable
 Open an SSH session to the robot or use its terminal:
 
 ```bash
-ssh uitm@10.9.10.153   # or login directly
+ssh uitm@10.9.10.72   # or login directly
 source ~/.bashrc
 ```
 
